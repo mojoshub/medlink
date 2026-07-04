@@ -1,0 +1,45 @@
+flowchart TB
+    subgraph RIDER["Rider's Android Device — Flutter App"]
+        UI["UI Layer<br/>Home/Map · Register Ambulance · Request Confirm · Tracking screens"]
+        PROV["Provider Layer (ChangeNotifier)<br/>AuthProvider · AmbulanceProvider · RequestProvider"]
+        SVC["Service Layer<br/>AuthService · FirestoreService · LocationService · DistanceService"]
+        UI --> PROV --> SVC
+    end
+
+    subgraph SIM["Simulator (2nd device/emulator) — Flutter App"]
+        SIMUI["Simulator control screen"]
+        SIMSVC["AmbulanceSimulatorService<br/>Timer.periodic every 3-5s"]
+        SIMUI --> SIMSVC
+    end
+
+    subgraph DEVICE_OS["Android OS"]
+        GPS["Location Services (GPS)"]
+        DIALER["Native Dialer App"]
+    end
+
+    subgraph FIREBASE["Firebase Backend"]
+        AUTH["Firebase Auth<br/>Anonymous sessions"]
+        FS["Cloud Firestore<br/>ambulances / requests / users"]
+        RULES["Security Rules<br/>per-collection, uid-scoped"]
+        FS --- RULES
+    end
+
+    subgraph EXT["External"]
+        OSM["OpenStreetMap Tile Server<br/>(map tiles)"]
+    end
+
+    SVC -->|read/write| FS
+    SVC -->|sign in| AUTH
+    SVC -->|get device location| GPS
+    UI -->|open tel: link| DIALER
+    UI -->|fetch map tiles| OSM
+    SIMSVC -->|update ambulance lat/lng| FS
+
+    FS -.->|live stream: nearby ambulances,<br/>assigned ambulance location| SVC
+
+    classDef appBox fill:#eef4ff,stroke:#3b5bdb,stroke-width:1px;
+    classDef fbBox fill:#fff4e6,stroke:#e8590c,stroke-width:1px;
+    classDef extBox fill:#f1f3f5,stroke:#495057,stroke-width:1px;
+    class RIDER,SIM appBox;
+    class FIREBASE fbBox;
+    class DEVICE_OS,EXT extBox;
