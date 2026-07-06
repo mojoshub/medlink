@@ -6,7 +6,15 @@ import 'screens/map_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
-  await Firebase.initializeApp();
+
+  try {
+    await Firebase.initializeApp();
+    debugPrint('Firebase initialized successfully');
+  } catch (error, stackTrace) {
+    debugPrint('Firebase initialization skipped: $error');
+    debugPrintStack(stackTrace: stackTrace);
+  }
+
   runApp(const MyApp());
 }
 

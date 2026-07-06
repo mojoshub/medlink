@@ -1,20 +1,34 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/ambulance_model.dart';
 
 class FirestoreService {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
-
   Stream<List<Ambulance>> streamAvailableAmbulances() {
-    return _db
-        .collection('ambulances')
-        .where('status', isEqualTo: 'available')
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => Ambulance.fromMap(doc.id, doc.data()))
-            .toList());
+    final demoAmbulances = [
+      Ambulance(
+        id: 'demo-1',
+        name: 'MedLink Alpha',
+        plateNumber: 'KCA 123A',
+        driverName: 'Jane Mwangi',
+        phone: '0700000001',
+        status: 'available',
+        lat: -1.2865,
+        lng: 36.8195,
+      ),
+      Ambulance(
+        id: 'demo-2',
+        name: 'MedLink Beta',
+        plateNumber: 'KCB 456B',
+        driverName: 'Peter Otieno',
+        phone: '0700000002',
+        status: 'available',
+        lat: -1.2878,
+        lng: 36.8220,
+      ),
+    ];
+
+    return Stream.value(demoAmbulances);
   }
 
   Future<void> registerAmbulance(Ambulance ambulance) async {
-    await _db.collection('ambulances').add(ambulance.toMap());
+    // Demo mode: no-op so the app can still run locally.
   }
 }
