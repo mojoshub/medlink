@@ -6,7 +6,8 @@ class PhoneButton extends StatelessWidget {
   final IconData icon;
   final double? elevation;
   final double? iconSize;
-  final String label; 
+  final String label;
+  final String heroTag;
 
   const PhoneButton({
     super.key,
@@ -16,6 +17,7 @@ class PhoneButton extends StatelessWidget {
     this.elevation,
     this.iconSize,
     this.label = 'Call',
+    this.heroTag = 'phoneFab',
   });
 
   @override
@@ -24,6 +26,7 @@ class PhoneButton extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         FloatingActionButton(
+          heroTag: heroTag,
           onPressed: onPressed,
           backgroundColor: backgroundColor,
           elevation: elevation,

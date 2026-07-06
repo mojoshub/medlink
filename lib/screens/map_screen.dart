@@ -155,6 +155,7 @@ class _MapScreenState extends State<MapScreen> {
             top: 16,
             right: 16,
             child: FloatingActionButton.extended(
+              heroTag: 'registerFab',
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -174,6 +175,7 @@ class _MapScreenState extends State<MapScreen> {
       ),
       floatingActionButton: PhoneButton(
         onPressed: () {},
+        heroTag: 'phoneFab',
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
