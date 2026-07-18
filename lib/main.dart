@@ -1,20 +1,8 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'screens/map_screen.dart';
+import 'screens/loading_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load();
-
-  try {
-    await Firebase.initializeApp();
-    debugPrint('Firebase initialized successfully');
-  } catch (error, stackTrace) {
-    debugPrint('Firebase initialization skipped: $error');
-    debugPrintStack(stackTrace: stackTrace);
-  }
-
   runApp(const MyApp());
 }
 
@@ -35,7 +23,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const MapScreen(),
+      home: const LoadingScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Ambulance {
   final String id;
   final String name;
@@ -40,6 +42,6 @@ class Ambulance {
         'status': status,
         'lat': lat,
         'lng': lng,
-        'lastUpdated': DateTime.now(),
+        'lastUpdated': FieldValue.serverTimestamp(),
       };
 }
