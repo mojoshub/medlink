@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -15,6 +16,8 @@ import 'package:flutter/foundation.dart'
 /// );
 /// ```
 class DefaultFirebaseOptions {
+  static String _env(String key) => dotenv.env[key] ?? '';
+
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       return web;
@@ -40,49 +43,49 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA5cu-qWdhPzbodPYv6hDMm0eH9b0EB7YA',
-    appId: '1:46191395254:web:46f9f8e631311f23658117',
-    messagingSenderId: '46191395254',
-    projectId: 'medlink-744a7',
-    authDomain: 'medlink-744a7.firebaseapp.com',
-    storageBucket: 'medlink-744a7.firebasestorage.app',
-    measurementId: 'G-73713ZJLBB',
+  static FirebaseOptions get web => FirebaseOptions(
+    apiKey: _env('FIREBASE_WEB_API_KEY'),
+    appId: _env('FIREBASE_WEB_APP_ID'),
+    messagingSenderId: _env('FIREBASE_WEB_MESSAGING_SENDER_ID'),
+    projectId: _env("FIREBASE_PROJECT_ID"),
+    authDomain: _env('FIREBASE_AUTH_DOMAIN'),
+    storageBucket: _env('FIREBASE_STORAGE_BUCKET'),
+    measurementId: _env('FIREBASE_MEASUREMENT_ID'),
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDIC5Q5OEchLax53kh_jbdF3itoSFcIpts',
-    appId: '1:46191395254:android:cdf8d903dcd48eaa658117',
-    messagingSenderId: '46191395254',
-    projectId: 'medlink-744a7',
-    storageBucket: 'medlink-744a7.firebasestorage.app',
+  static FirebaseOptions get android => FirebaseOptions(
+    apiKey: _env('FIREBASE_ANDROID_API_KEY'),
+    appId: _env('FIREBASE_ANDROID_APP_ID'),
+    messagingSenderId: _env('FIREBASE_ANDROID_MESSAGING_SENDER_ID'),
+    projectId: _env("FIREBASE_PROJECT_ID"),
+    storageBucket: _env('FIREBASE_STORAGE_BUCKET'),
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBWjEA64iFCZ9NN5RXKN-ddi_H9_7vxOlo',
-    appId: '1:46191395254:ios:70111aeeba8e5b20658117',
-    messagingSenderId: '46191395254',
-    projectId: 'medlink-744a7',
-    storageBucket: 'medlink-744a7.firebasestorage.app',
+  static FirebaseOptions get ios => FirebaseOptions(
+    apiKey: _env('FIREBASE_IOS_API_KEY'),
+    appId: _env('FIREBASE_IOS_APP_ID'),
+    messagingSenderId: _env('FIREBASE_IOS_MESSAGING_SENDER_ID'),
+    projectId: _env("FIREBASE_PROJECT_ID"),
+    storageBucket: _env('FIREBASE_STORAGE_BUCKET'),
+    iosBundleId: _env('FIREBASE_IOS_BUNDLE_ID'),
+  );
+
+  static FirebaseOptions get macos => FirebaseOptions(
+    apiKey: _env('FIREBASE_MACOS_API_KEY'),
+    appId: _env('FIREBASE_MACOS_APP_ID'),
+    messagingSenderId: _env('FIREBASE_MACOS_MESSAGING_SENDER_ID'),
+    projectId: _env("FIREBASE_PROJECT_ID"),
+    storageBucket: _env('FIREBASE_STORAGE_BUCKET'),
     iosBundleId: 'com.example.medlink',
   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBWjEA64iFCZ9NN5RXKN-ddi_H9_7vxOlo',
-    appId: '1:46191395254:ios:70111aeeba8e5b20658117',
-    messagingSenderId: '46191395254',
-    projectId: 'medlink-744a7',
-    storageBucket: 'medlink-744a7.firebasestorage.app',
-    iosBundleId: 'com.example.medlink',
-  );
-
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyA5cu-qWdhPzbodPYv6hDMm0eH9b0EB7YA',
-    appId: '1:46191395254:web:c51cdb9307e2a520658117',
-    messagingSenderId: '46191395254',
-    projectId: 'medlink-744a7',
-    authDomain: 'medlink-744a7.firebaseapp.com',
-    storageBucket: 'medlink-744a7.firebasestorage.app',
-    measurementId: 'G-BME06KYXF7',
+  static FirebaseOptions get windows => FirebaseOptions(
+    apiKey: _env('FIREBASE_WINDOWS_API_KEY'),
+    appId: _env('FIREBASE_WINDOWS_APP_ID'),
+    messagingSenderId: _env('FIREBASE_WINDOWS_MESSAGING_SENDER_ID'),
+    projectId: _env("FIREBASE_PROJECT_ID"),
+    authDomain: _env('FIREBASE_AUTH_DOMAIN'),
+    storageBucket: _env('FIREBASE_STORAGE_BUCKET'),
+    measurementId: _env('FIREBASE_MEASUREMENT_ID'),
   );
 }
